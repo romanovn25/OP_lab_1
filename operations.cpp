@@ -8,23 +8,25 @@ double calculate(struct operation calculation)
     std::string operation = calculation.operation;
     if (operation == "+")
         res = calculation.num_1 + calculation.num_2;
-    if (operation == "-")
+    else if (operation == "-")
         res = calculation.num_1 - calculation.num_2;
-    if (operation == "*")
+    else if (operation == "*")
         res = calculation.num_1 * calculation.num_2;
-    if (operation == "/" && calculation.num_2 != 0)
+    else if (operation == "/" && calculation.num_2 != 0)
         res = calculation.num_1 / calculation.num_2;
-    if (operation == "/" && calculation.num_2 == 0)
+    else if (operation == "/" && calculation.num_2 == 0)
         res = ERROR; //987654e-99
-    if (operation == "cos")
+    else if (operation == "cos")
         res = cos(calculation.num_1);
-    if (operation == "sin")
+    else if (operation == "sin")
         res = sin(calculation.num_1);
-    if (operation == "tg")
+    else if (operation == "tg" && cos(calculation.num_1) != 0)
         res = tan(calculation.num_1);
-    if (operation == "ctg" && calculation.num_1 == 0)
+    else if (operation == "tg" && cos(calculation.num_1) == 0)
+        res = ERROR;
+    else if (operation == "ctg" && sin(calculation.num_1) == 0)
         res = ERROR; //987654e-99
-    if (operation == "ctg" && calculation.num_1 != 0)
+    else if (operation == "ctg" && sin(calculation.num_1) != 0)
         res = 1 / (tan(calculation.num_1));
     return res;
 }

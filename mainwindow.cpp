@@ -164,8 +164,8 @@ void MainWindow::on_btn_operator_plus_minus_clicked()
     operation = btn->text();
     if (operation == "cos" || operation == "sin" || operation == "tg" || operation == "ctg")
     {
-        ui->btn_action_delete->setEnabled(false);
         ui->btn_operator_equal->setEnabled(true);
+        ui->btn_action_delete->setEnabled(false);
         on_btn_numbers_enabled(false);
     }
     ui->lbl_display->setText("");
@@ -176,6 +176,8 @@ void MainWindow::on_btn_operator_plus_minus_clicked()
 
 void MainWindow::on_btn_operator_equal_clicked()
 {
+    on_btn_numbers_enabled(true);
+    on_btn_operations_enabled(true);
     ui->btn_operator_equal->setEnabled(false);
     struct operation calculation;
     calculation.num_1 = num_1.toDouble();
@@ -204,10 +206,4 @@ void MainWindow::on_btn_operator_equal_clicked()
     operation.clear();
     num_1.clear();
 }
-
-void MainWindow::on_btn_helper_clicked()
-{
-    QMessageBox::information(this, "Helper", "Выполняйте действия строго по-одному!");
-}
-
 

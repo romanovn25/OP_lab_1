@@ -24,7 +24,6 @@ private slots:
     void on_btn_action_delete_clicked();
     void on_btn_operator_equal_clicked();
     void on_btn_operator_plus_minus_clicked();
-    void on_btn_helper_clicked();
     void on_btn_numbers_enabled(bool res);
     void on_btn_operations_enabled(bool res);
     void on_btn_trig_enabled(bool res);
