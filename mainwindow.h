@@ -14,6 +14,7 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+    void error_actions();
 
 
 
@@ -27,9 +28,6 @@ private slots:
     void on_btn_numbers_enabled(bool res);
     void on_btn_operations_enabled(bool res);
     void on_btn_trig_enabled(bool res);
-    void calculate_trig();
-
-
 
 private:
     Ui::MainWindow *ui;

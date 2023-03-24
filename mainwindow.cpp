@@ -66,6 +66,18 @@ void MainWindow::on_btn_operations_enabled(bool res)
     ui->btn_operator_devide->setEnabled(res);
 }
 
+void MainWindow::error_actions()
+{
+    QMessageBox::information(this,"Error","It is forbidden to divide by zero");
+    ui->lbl_display->clear();
+    on_btn_operations_enabled(false);
+    on_btn_numbers_enabled(true);
+    ui->btn_operator_fraction->setEnabled(false);
+    ui->btn_number_0->setEnabled(true);
+    ui->btn_action_delete->setEnabled(true);
+    num_1 = 0;
+}
+
 void MainWindow::on_btn_number_clicked()
 {
     QPushButton *btn = (QPushButton *)sender();
@@ -151,9 +163,12 @@ void MainWindow::on_btn_operator_plus_minus_clicked()
     num_1 = ui->lbl_display->text();
     operation = btn->text();
     if (operation == "cos" || operation == "sin" || operation == "tg" || operation == "ctg")
-        calculate_trig();
-    if (operation != "cos" && operation != "sin" && operation != "tg" && operation != "ctg")
-        ui->lbl_display->setText("");
+    {
+        ui->btn_action_delete->setEnabled(false);
+        ui->btn_operator_equal->setEnabled(true);
+        on_btn_numbers_enabled(false);
+    }
+    ui->lbl_display->setText("");
     on_btn_operations_enabled(false);
     on_btn_trig_enabled(false);
 }
@@ -178,14 +193,7 @@ void MainWindow::on_btn_operator_equal_clicked()
     }
     if (result == ERROR)
     {
-        QMessageBox::information(this,"Error","It is forbidden to divide by zero");
-        ui->lbl_display->clear();
-        on_btn_operations_enabled(false);
-        on_btn_numbers_enabled(true);
-        ui->btn_operator_fraction->setEnabled(false);
-        ui->btn_number_0->setEnabled(true);
-        ui->btn_action_delete->setEnabled(true);
-        num_1 = 0;
+        error_actions();
     }
     else
     {
@@ -195,32 +203,6 @@ void MainWindow::on_btn_operator_equal_clicked()
     }
     operation.clear();
     num_1.clear();
-}
-
-void MainWindow::calculate_trig()
-{
-    double res = 0;
-    struct operation calculation;
-    calculation.num_1 = num_1.toDouble();
-    QByteArray sign = operation.toLatin1();
-    calculation.operation = sign.data();
-    res = calculate(calculation);
-    if (res != ERROR)
-    {
-        num_1 = QString::number(res);
-        ui->lbl_display->setText(num_1);
-    }
-    else
-    {
-        QMessageBox::information(this,"Error","It is forbidden to divide by zero");
-        ui->lbl_display->clear();
-    }
-    num_1.clear();
-    /*on_btn_operations_enabled(false);
-    on_btn_numbers_enabled(true);
-    ui->btn_operator_fraction->setEnabled(false);
-    ui->btn_number_0->setEnabled(true);
-    ui->btn_action_delete->setEnabled(true);*/
 }
 
 void MainWindow::on_btn_helper_clicked()
